@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/action.css">
+	<link rel="stylesheet" href="/css/profile.css">
+	<link rel="stylesheet" href="/css/pagination.css">
+	<link rel="stylesheet" href="/icon/themify-icons/themify-icons.css">
+	<title>IoT Và Ứng Dụng</title>
+	<script src="/js/chart.min.js"></script>
+
+</head>
+<body>
+<div id="main">
+	<!--BEGIN SIDEBAR-->
+	<div class="sidebar">
+		<div class="logo">
+			<p>IoT Và Ứng Dụng</p>
+		</div>
+		<div class="line"></div>
+		<div class="sidebar-menu">
+			<ul>
+				<li>
+					<a href="/">
+						<div class="menu trangchu">
+							<i class="ti-home"></i>
+							<p>Trang Chủ</p>
+						</div>
+					</a>
+				</li>
+
+				<li>
+					<a href="/all-data">
+						<div class="menu all_data">
+							<i class="ti-folder"></i>
+							<p>Tất Cả Dữ Liệu</p>
+						</div>
+					</a>
+				</li>
+
+				<li>
+					<a href="">
+						<div class="menu action_history">
+							<i class="ti-share-alt"></i>
+							<p>Lịch Sử Thao Tác</p>
+						</div>
+					</a>
+				</li>
+
+			</ul>
+		</div>
+	</div>
+	<!--END SIDEBAR-->
+
+	<!--BEGIN HEADER-->
+	<div class="header">
+		<div class="header-menu">
+			<i class="ti-menu"></i>
+		</div>
+		<div class="avatar" onclick="toggleProfileBox()">
+			<img src="/img/Screenshot 2023-11-08 165149.png" class="avatar img-circle img-thumbnail" alt="avatar">
+		</div>
+		<div class="profile-box" id="profileBox">
+			<!-- Thông tin cá nhân ở đây -->
+			<div class="profile-user">
+				<h4>Thông tin người dùng</h4>
+			</div>
+
+			<div class="row">
+				<!-- left column -->
+				<div class="col-md-3">
+					<div class="text-center">
+						<img src="/img/Screenshot 2023-11-08 165149.png" class="avatar img-circle img-thumbnail" alt="avatar">
+						<h6 style="font-size: 16px;">Ảnh đại diện</h6>
+					</div>
+				</div>
+
+				<!-- edit form column -->
+				<div class="col-md-9 personal-info">
+					<form class="form-horizontal" role="form">
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Mã sinh viên:</label>
+							<div class="col-lg-8">
+								<input class="form-control" type="text" value="B20DCCN323" readonly>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Họ và tên:</label>
+							<div class="col-lg-8">
+								<input class="form-control" type="text" value="Phạm Văn Huy" readonly>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Số điện thoại:</label>
+							<div class="col-lg-8">
+								<input class="form-control" type="text" value="096 8389 225" readonly>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Email:</label>
+							<div class="col-lg-8">
+								<input class="form-control" type="text" value="huypv@gmail.com" readonly>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-lg-3 control-label">Trường:</label>
+							<div class="col-lg-8">
+								<input class="form-control" type="text" value="Học Viện Công Nghệ Bưu Chính Viễn Thông" readonly>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	<!--END HEADER-->
+
+	<!--BEGIN INNERBLOCK-->
+	<div class="content-wrapper">
+		<div class="content-header">
+			<h4>Lịch sử thao tác</h4>
+		</div>
+
+		<div class="searchBlock">
+			<form action="" method="get">
+				<label for="startTime">Thời gian bắt đầu:</label>
+				<input th:value="${searchDto.getStartDate()}" name="start-date" type="text" id="startTime">
+
+				<label for="endTime">Thời gian kết thúc:</label>
+				<input th:value="${searchDto.getEndDate()}" name="end-date" type="text" id="endTime">
+
+				<label for="sortOrder">Sắp xếp theo:</label>
+				<select th:value="${searchDto.orderDate}" name="order-date" id="sortOrder">
+					<option value="asc">Tăng Dần</option>
+					<option value="desc">Giảm Dần</option>
+				</select>
+
+				<button type="submit">Tìm Kiếm</button>
+			</form>
+
+		</div>
+
+		<table class="tb_data">
+			<thead>
+			<tr>
+				<th class="td-cell">STT</th>
+				<th class="td-cell">Thời gian</th>
+				<th class="td-cell">Tên Thiết Bị</th>
+				<th class="td-cell">Hành Động</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="action, state:${searchDto.getResult()}">
+				<td class="td-cell" th:text="${state.index + 1}"></td>
+				<td class="td-cell" th:text="${action.time}"></td>
+				<td class="td-cell" th:text="${action.thietBi}"></td>
+				<td class="td-cell" th:text="${action.trangThai}"></td>
+			</tr>
+			</tbody>
+		</table>
+
+
+		<div class="pagination">
+			<p style="display: none" th:text="${searchDto.pageIndex}" id="pageIndex"></p>
+			<p style="display: none" th:text="${searchDto.totalPages}" id="totalPages"></p>
+			<ul class="ptrang jc-giua" id="pagination">
+				<script>
+					var ulElement = document.querySelector("#pagination");
+					var resultArr = ['1'];
+					var resultStr = ''
+					var currentPage = document.querySelector("#pageIndex").innerHTML
+					var maxPage = document.querySelector("#totalPages").innerHTML
+
+					if(currentPage - 1 > 2)
+						resultArr.push('...')
+
+					for(var i = 2; i < maxPage; i++){
+						if(Math.abs(i - currentPage) < 2 && Math.abs(i - currentPage) >= 0)
+							resultArr.push(i+'')
+					}
+
+					console.log(currentPage)
+
+					if(maxPage - currentPage > 2)
+						resultArr.push('...')
+					if(maxPage > 1)
+						resultArr.push(maxPage+'')
+
+					resultArr.forEach( (e) => resultStr += '<li class="page-item active">' + '<a class="page-link so-page" href="' + "/all-action?page=" + e + '">' + e + '</a>' + '</li>')
+					ulElement.innerHTML = resultStr
+
+					document.querySelectorAll('.page-item')[currentPage].style.backdropColor = 'yellow'
+				</script>
+			</ul>
+		</div>
+
+
+	</div>
+
+
+	<!--END INNERBLOCK-->
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/temperature.js"></script>
+<script src="/js/profile.js"></script>
+
+
+</body>
+</html>

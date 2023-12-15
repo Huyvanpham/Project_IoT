@@ -1,0 +1,27 @@
+.width-95
+{
+    margin: auto;
+    width: 95%;
+}
+
+.search-box
+{
+    height: 300px;
+    border: 1px solid;
+    margin-bottom: 20px;
+}
+
+.one-line
+{
+    width: 100%;
+}
+
+.text-center
+{
+    align-items: center;
+}
+
+.error
+{
+    color: red !important;
+}

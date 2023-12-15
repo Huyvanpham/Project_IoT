@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>IoT Và Ứng Dụng</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/loading_dot.css">
+    <link rel="stylesheet" href="/icon/themify-icons/themify-icons.css">
+</head>
+<body>
+<div id="main">
+    <!--BEGIN SIDEBAR-->
+    <div class="sidebar">
+        <div class="logo">
+            <p>IoT Và Ứng Dụng</p>
+        </div>
+        <div class="line"></div>
+        <div class="sidebar-menu">
+            <ul>
+                <li>
+                    <a href="/">
+                        <div class="menu trangchu">
+                            <i class="ti-home"></i>
+                            <p>Trang Chủ</p>
+                        </div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/all-data">
+                        <div class="menu all_data">
+                            <i class="ti-folder"></i>
+                            <p>Tất Cả Dữ Liệu</p>
+                        </div>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/all-action">
+                        <div class="menu action_history">
+                            <i class="ti-share-alt"></i>
+                            <p>Lịch Sử Thao Tác</p>
+                        </div>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <!--END SIDEBAR-->
+
+    <!--BEGIN HEADER-->
+    <div class="header">
+        <div class="header-menu">
+            <i class="ti-menu"></i>
+        </div>
+        <div class="avatar" onclick="toggleProfileBox()">
+            <img src="/img/Screenshot 2023-11-08 165149.png" class="avatar img-circle img-thumbnail" alt="avatar">
+        </div>
+        <div class="profile-box" id="profileBox">
+            <!-- Thông tin cá nhân ở đây -->
+            <div class="profile-user">
+                <h4>Thông tin người dùng</h4>
+            </div>
+
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <img src="/img/Screenshot 2023-11-08 165149.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                        <h6 style="font-size: 16px;">Ảnh đại diện</h6>
+                    </div>
+                </div>
+
+                <!-- edit form column -->
+                <div class="col-md-9 personal-info">
+                    <form class="form-horizontal" role="form">
+
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Mã sinh viên:</label>
+                            <div class="col-lg-8">
+                                <input class="form-control" type="text" value="B20DCCN323" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Họ và tên:</label>
+                            <div class="col-lg-8">
+                                <input class="form-control" type="text" value="Phạm Văn Huy" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Số điện thoại:</label>
+                            <div class="col-lg-8">
+                                <input class="form-control" type="text" value="096 8389 225" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Email:</label>
+                            <div class="col-lg-8">
+                                <input class="form-control" type="text" value="huypv@gmail.com" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Trường:</label>
+                            <div class="col-lg-8">
+                                <input class="form-control" type="text" value="Học Viện Công Nghệ Bưu Chính Viễn Thông" readonly>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- </div> -->
+    </div>
+    <!--END HEADER-->
+
+    <!--BEGIN INNERBLOCK-->
+    <div class="content-wrapper">
+        <div class="content-header">
+            <h4>Trang Chủ</h4>
+        </div>
+
+        <div class="thongso">
+            <div id="temperatureBackground" class="temperature">
+                <div class="nhietdo">Nhiệt độ:</div>
+                <div class="temperature-container">
+                    <span id="temperature-result" class="temperature-value">Loading</span>
+                </div>
+                <img src="/img/celsius.png" >
+            </div>
+
+            <div id="humidity-background"  class="humidity">
+                <div class="doam">Độ Ẩm:</div>
+                <div class="humidity-container">
+                    <span id="humidity-result" class="humidity-value">Loading</span>
+                </div>
+                <img src="/img/humidity.png">
+            </div>
+
+            <div id="light-background" class="led">
+                <div class="den"> Độ Sáng:</div>
+                <div class="led-container">
+                    <span id="light-result" class="led-value">Loading</span>
+                </div>
+                <img src="/img/250906782_56.png">
+            </div>
+
+        </div>
+
+        <div class="content-container">
+            <div class="chart-container">
+                <canvas id="graph"></canvas>
+            </div>
+
+            <div class="khoiden">
+                <div class="khoiden1">
+                    <p>Đèn</p>
+                    <div style="padding: 0; font-size: 15px">Số lần bât: <div id="den1-bat"></div></div>
+                    <div style="padding: 0; font-size: 15px">Số lần tắt: <div id="den1-tat"></div></div>
+<!--                    <p style="padding-top: 120px" id="led-result-1">Loading</p>-->
+                    <!-- <img src="./assets/img/led.png" alt=""> -->
+                    <div id="led-background-1" class="densang o-vuong led-off" onclick="led_on_off(1)">
+                        <img src="/img/led.png" alt="">
+                    </div>
+                </div>
+                <div class="khoiden2">
+                    <p>Quạt</p>
+                    <div style="padding: 0; font-size: 15px">Số lần bât: <div id="den2-bat"></div></div>
+                    <div style="padding: 0; font-size: 15px">Số lần tắt: <div id="den2-tat"></div> </div>
+<!--                    <p style="padding-top: 120px" id="led-result-2">Loading</p>-->
+                    <!-- <img src="./assets/img/led.png" alt=""> -->
+                    <div id="led-background-2" class="densang o-vuong" onclick="led_on_off(2)">
+                        <img src="/img/fan.png" alt="">
+                        <i class="fa-solid fa-fan" id="iconBt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+        <!--END INNERBLOCK-->
+    </div>
+    <script src="/js/doBui.js"></script>
+    <script src="/js/light.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="/js/loading_dot.js"></script>
+    <script src="/js/chart.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="/js/led.js"></script>
+    <script src="/js/humidity.js"></script>
+    <script src="/js/graph.js"></script>
+    <script src="/js/temperature.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/profile.js"></script>
+</body>
+</html>
